@@ -64,8 +64,49 @@ function getRandomMovie() {
     };
 }
 
+function getAllMovies() {
+    const csvFilePath = path.join(__dirname, "..", "..", "data", "movies.csv");
+    const csvData = fs.readFileSync(csvFilePath, "utf8");
+    const lines = csvData.split("\n").slice(1); // Skip header
+    
+    return lines.map(line => {
+        const values = parseCSVRow(line);
+        return {
+            id: values[0],
+            título: values[1],
+            año: values[2],
+            género: values[3],
+            director: values[4],
+            actores: values[5],
+            sinopsis: values[6],
+            calificación: values[7],
+            duración: values[8] + " minutos"
+        };
+    });
+}
+
+function findMovie(idOrName) {
+    const movies = getAllMovies();
+    return movies.find(movie => 
+        movie.id.toLowerCase() === idOrName.toLowerCase() || 
+        movie.título.toLowerCase() === idOrName.toLowerCase()
+    );
+}
+
+function getMoviesByGenre(genre) {
+    const movies = getAllMovies();
+    if (!genre) return movies;
+    
+    return movies.filter(movie => 
+        movie.género.toLowerCase().includes(genre.toLowerCase())
+    );
+}
+
 module.exports = { 
     getMovieByTitle,
-    getRandomMovie 
+    getRandomMovie,
+    getAllMovies,
+    findMovie,
+    getMoviesByGenre
 };
 
