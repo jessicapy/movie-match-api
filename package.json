@@ -2,17 +2,17 @@
   "name": "movie-match-api",
   "version": "1.0.0",
   "description": "Movie details finder",
-  "main": "src/server.js",
+  "main": "index.js",
   "type": "commonjs",
   "scripts": {
-    "start": "node src/server.js",
+    "start": "node index.js",
     "search": "node src/movie.js",
-    "dev": "nodemon src/server.js"
+    "dev": "nodemon index.js"
   },
   "dependencies": {
+    "cors": "^2.8.5",
     "dotenv": "^16.4.7",
-    "express": "^4.21.2",
-    "mongoose": "^8.13.1"
+    "express": "^4.21.2"
   },
   "devDependencies": {
     "nodemon": "^3.0.1"
