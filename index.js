@@ -12,8 +12,8 @@ const movieRoutes = require('./routes/movieRoutes');
 app.use(cors());
 app.use(express.json());
 
-// Mount routes at root path
-app.use('/', movieRoutes);
+// Mount routes at /movies path
+app.use('/movies', movieRoutes);
 
 // Error handling
 app.use((err, req, res, next) => {
@@ -21,5 +21,5 @@ app.use((err, req, res, next) => {
   res.status(500).send('Something broke!');
 });
 
-const PORT = process.env.PORT || 3001;
+const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
