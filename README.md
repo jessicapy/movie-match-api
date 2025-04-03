@@ -31,7 +31,11 @@ This API is deployed on Render. To deploy your own instance:
 
 ## API Documentation
 
-The API is available at: [https://your-api-url.onrender.com](https://your-api-url.onrender.com)
+The API is available at: 
+
+[https://movie-match-api-fffz.onrender.com/movies](https://movie-match-api-fffz.onrender.com/movies)
+
+[https://movie-match-api-fffz.onrender.com/movies](https://movie-match-api-fffz.onrender.com/movies)
 
 ### Endpoints
 
