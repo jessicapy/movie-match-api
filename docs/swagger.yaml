@@ -1,0 +1,133 @@
+openapi: 3.0.0
+info:
+  title: Movie Match API
+  description: API for managing and retrieving movie data.
+  version: 1.0.0
+servers:
+  - url: http://localhost:3000
+    description: Local server
+paths:
+  /movies:
+    get:
+      summary: Retrieve a list of all movies
+      description: Fetches a list of all movies available in the database.
+      responses:
+        '200':
+          description: A list of movies
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: string
+                      description: The IMDb ID of the movie.
+                      example: tt0111161
+                    title:
+                      type: string
+                      description: The title of the movie.
+                      example: The Shawshank Redemption
+                    year:
+                      type: integer
+                      description: The release year of the movie.
+                      example: 1994
+                    genre:
+                      type: array
+                      items:
+                        type: string
+                      description: The genre(s) of the movie.
+                      example: Drama
+                    director:
+                      type: array
+                      items:
+                        type: string
+                      description: The director of the movie.
+                      example: Frank Darabont
+                    actors:
+                      type: array
+                      items:
+                        type: string
+                      description: The main actors in the movie.
+                      example: Tim Robbins, Morgan Freeman, Bob Gunton
+                    plot:
+                      type: string
+                      description: A brief summary of the movie's plot.
+                      example: Over the course of several years, two convicts form a friendship, seeking consolation and, eventually, redemption through basic compassion.
+                    imdb_rating:
+                      type: number
+                      format: float
+                      description: The IMDb rating of the movie.
+                      example: 9.3
+                    runtime_minutes:
+                      type: integer
+                      description: The runtime of the movie in minutes.
+                      example: 142
+    /movies/{id}:
+      get:
+        summary: Retrieve a specific movie by ID
+        description: Fetches details of a movie using its IMDb ID.
+        parameters:
+          - name: id
+            in: path
+            required: true
+            description: The IMDb ID of the movie to retrieve.
+            schema:
+              type: string
+              example: tt0111161
+        responses:
+          '200':
+            description: Details of the requested movie
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    id:
+                      type: string
+                      description: The IMDb ID of the movie.
+                      example: tt0111161
+                    title:
+                      type: string
+                      description: The title of the movie.
+                      example: The Shawshank Redemption
+                    year:
+                      type: integer
+                      description: The release year of the movie.
+                      example: 1994
+                    genre:
+                      type: string
+                      description: The genre(s) of the movie.
+                      example: Drama
+                    director:
+                      type: string
+                      description: The director of the movie.
+                      example: Frank Darabont
+                    actors:
+                      type: string
+                      description: The main actors in the movie.
+                      example: Tim Robbins, Morgan Freeman, Bob Gunton
+                    plot:
+                      type: string
+                      description: A brief summary of the movie's plot.
+                      example: Over the course of several years, two convicts form a friendship, seeking consolation and, eventually, redemption through basic compassion.
+                    imdb_rating:
+                      type: number
+                      format: float
+                      description: The IMDb rating of the movie.
+                      example: 9.3
+                    runtime_minutes:
+                      type: integer
+                      description: The runtime of the movie in minutes.
+                      example: 142
+          '404':
+            description: Movie not found
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    message:
+                      type: string
+                      example: Movie not found
