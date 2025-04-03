@@ -36,9 +36,6 @@ app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDoc));
 
 // Mount routes
 app.use('/movies', movieRoutes);
-app.get('/bruno', (req, res)=> {
-  throw new Error('Bruno is not allowed here!');
-});
 
 // Error handling middleware (must be last)
 app.use(errorHandler);
