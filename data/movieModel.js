@@ -15,6 +15,52 @@ class MovieModel {
     return movies.find(movie => movie.id === id);
   }
 
+  static async getMoviesByGenre(searchGenre) {
+    try {
+      const movies = await this.getAllMovies();
+      return movies.filter(movie => {
+        // Split genre by comma and clean up whitespace
+        const genres = movie.genre.split(',').map(g => g.trim());
+        return genres.some(g => g.toLowerCase() === searchGenre.toLowerCase());
+      });
+    } catch (error) {
+      console.error('Error in getMoviesByGenre:', error);
+      throw error;
+    }
+  }
+
+  static async searchMoviesByYear(fromYear, toYear) {
+    try {
+      const movies = await this.getAllMovies();
+      console.log('Total movies before filtering:', movies.length);
+
+      const filteredMovies = movies.filter(movie => {
+        const movieYear = parseInt(movie.year);
+        console.log(`Checking movie: ${movie.title}, Year: ${movieYear}`);
+        return movieYear >= fromYear && movieYear <= toYear;
+      });
+
+      console.log('Filtered movies count:', filteredMovies.length);
+      return filteredMovies;
+    } catch (error) {
+      console.error('Error in searchMoviesByYear:', error);
+      throw error;
+    }
+  }
+
+  static async getMoviesByMinDuration(minDuration) {
+    try {
+      const movies = await this.getAllMovies();
+      return movies.filter(movie => {
+        const duration = parseInt(movie.runtime_minutes);
+        return !isNaN(duration) && duration >= minDuration;
+      });
+    } catch (error) {
+      console.error('Error in getMoviesByMinDuration:', error);
+      throw error;
+    }
+  }
+
   static parseCSV(data) {
     const lines = data.split('\n');
     const headers = lines[0].split(',').map(h => h.trim());
@@ -30,14 +76,7 @@ class MovieModel {
           // Remove quotes if present
           value = value.replace(/^"|"$/g, '').trim();
         }
-        
-        // Check if the field should be an array
-        if (['Genre', 'Director', 'Actors'].includes(header)) {
-          // Split by comma and trim each value
-          movie[header] = value ? value.split(',').map(item => item.trim()) : [];
-        } else {
-          movie[header] = value || '';
-        }
+        movie[header] = value || '';
       });
       
       return movie;

@@ -9,6 +9,18 @@ const movieService = {
 
   getMovie: async (id) => {
     return await Movie.findById(id);
+  },
+
+  getMoviesByGenre: async (genre) => {
+    return await Movie.getMoviesByGenre(genre);
+  },
+
+  searchMoviesByYear: async (fromYear, toYear) => {
+    return await Movie.searchMoviesByYear(fromYear, toYear);
+  },
+
+  getMoviesByMinDuration: async (minDuration) => {
+    return await Movie.getMoviesByMinDuration(minDuration);
   }
 };
 
